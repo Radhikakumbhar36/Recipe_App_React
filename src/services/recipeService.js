@@ -115,12 +115,44 @@ export const getRecipeDetails = async (id) => {
     throw new Error("Recipe not found.");
   }
 
+  const extendedIngredients = [];
+  for (let i = 1; i <= 20; i += 1) {
+    const name = (meal[`strIngredient${i}`] || "").trim();
+    const measure = (meal[`strMeasure${i}`] || "").trim();
+    if (!name) continue;
+
+    extendedIngredients.push({
+      name,
+      nameClean: name,
+      amount: measure || "",
+      originalMeasure: measure || "",
+    });
+  }
+
+  const analyzedInstructions = [];
+  const rawInstructions = (meal.strInstructions || "").trim();
+  if (rawInstructions) {
+    const steps = rawInstructions
+      .split(/\r?\n|\. /)
+      .map((step) => step.replace(/\.$/, "").trim())
+      .filter(Boolean)
+      .map((step, index) => ({ number: index + 1, step }));
+
+    if (steps.length > 0) {
+      analyzedInstructions.push({ steps });
+    }
+  }
+
   return {
     id: Number(meal.idMeal),
     title: meal.strMeal,
     image: meal.strMealThumb,
     summary: `${meal.strCategory || "Meal"} from ${meal.strArea || "global cuisine"}.`,
-    instructions: meal.strInstructions || "",
+    instructions: rawInstructions,
+    extendedIngredients,
+    analyzedInstructions,
+    dishTypes: meal.strCategory ? [meal.strCategory] : [],
+    cuisines: meal.strArea ? [meal.strArea] : [],
     readyInMinutes: null,
     servings: null,
     nutrition: {
