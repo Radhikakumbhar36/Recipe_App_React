@@ -49,7 +49,7 @@ const ReceipeCard = ({ meal, onFavoriteChange }) => {
           <img
             src={image}
             alt={title}
-            className="h-60 w-60 rounded-xl border border-yellow-400 transition duration-500 group-hover:scale-105"
+            className="w-full max-w-[220px] h-auto aspect-square rounded-xl border border-yellow-400 transition duration-500 group-hover:scale-105 object-cover"
           />
         </div>
         <div className="p-2 text-center">

@@ -16,6 +16,24 @@ const TredingReceipe = ({ title, recipes = [], loading = false, error = "" }) =>
     cssEase: "linear",
     appendDots: () => null,
     customPaging: () => null,
+    responsive: [
+      {
+        breakpoint: 1280,
+        settings: { slidesToShow: 4 },
+      },
+      {
+        breakpoint: 1024,
+        settings: { slidesToShow: 3 },
+      },
+      {
+        breakpoint: 768,
+        settings: { slidesToShow: 2 },
+      },
+      {
+        breakpoint: 480,
+        settings: { slidesToShow: 1 },
+      },
+    ],
   };
 
   if (loading)
@@ -32,15 +50,15 @@ const TredingReceipe = ({ title, recipes = [], loading = false, error = "" }) =>
 
   return (
     <section className="mt-2 mx-auto">
-      <h2 className="text-3xl font-extrabold text-gray-100 mb-6 tracking-tight border-1-4 border-yellow-400 pl-4 flex items-center">
-        <Clock className="w-6 h-6 mr-3 text-blue-500" />
+      <h2 className="text-2xl sm:text-3xl font-extrabold text-gray-100 mb-4 sm:mb-6 tracking-tight border-l-4 border-yellow-400 pl-3 sm:pl-4 flex items-center">
+        <Clock className="w-5 h-5 sm:w-6 sm:h-6 mr-2 sm:mr-3 text-blue-500" />
         {title}
       </h2>
 
       <div className="w-full mx-auto">
         <Slider {...settings}>
           {recipes.map((recipe) => (
-            <div key={recipe.id} className="px-10 flex justify-center">
+            <div key={recipe.id} className="px-2 sm:px-6 md:px-8 lg:px-10 flex justify-center">
               <Link to={`/recipe/${recipe.id}/`}>
                 <div className="relative bg-gray-900 rounded-xl shadow-xl shadow-black/50 overflow-hidden group transform transition duration-500 cursor-pointer border border-gray-800 hover:shadow-blue-600/50 mb-5">
                   <div className="absolute inset-0 rounded-xl border-2 border-transparent group-hover:border-blue-500/80 transition duration-500"></div>

@@ -72,18 +72,18 @@ const SearchView = () => {
   }, [decodedQuery, searchType, page, selectedFilters]);
 
   return (
-    <main className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <main className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
       <Link
         to="/"
-        className="text-yellow-400 hover:text-yellow-300 flex items-center mb-6 font-medium transition text-lg group"
+        className="text-yellow-400 hover:text-yellow-300 flex items-center mb-4 sm:mb-6 font-medium transition text-base sm:text-lg group"
       >
-        <ChevronLeft className="w-6 h-6 mr-1 transition" />
+        <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 mr-1 transition" />
         Back to Dashboard
       </Link>
 
       <div className="mb-8 bg-gray-900 border border-gray-800 rounded-xl p-4">
         <h2 className="text-lg font-semibold text-gray-100 mb-4">Filters</h2>
-        <div className="flex flex-wrap items-center gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
           <label className="inline-flex items-center gap-2 text-gray-200">
             <input
               type="checkbox"
@@ -126,7 +126,7 @@ const SearchView = () => {
               onChange={(e) =>
                 setSelectedFilters((prev) => ({ ...prev, maxCalories: e.target.value }))
               }
-              className="w-28 px-2 py-1 bg-gray-800 border border-gray-700 rounded text-gray-100"
+              className="w-24 sm:w-28 px-2 py-1 bg-gray-800 border border-gray-700 rounded text-gray-100"
             />
           </label>
         </div>
@@ -146,7 +146,7 @@ const SearchView = () => {
       )}
 
       {!loading && recipes.length > 0 && (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 sm:gap-8 lg:gap-12">
           {recipes.map((meal) => (
             <ReceipeCard key={meal.id} meal={meal} />
           ))}
@@ -154,7 +154,7 @@ const SearchView = () => {
       )}
 
       {!loading && !error && recipes.length > 0 && (
-        <div className="flex items-center justify-center gap-4 mt-10">
+        <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 mt-8 sm:mt-10">
           <button
             type="button"
             onClick={() => setPage((prev) => Math.max(1, prev - 1))}

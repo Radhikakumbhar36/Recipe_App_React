@@ -18,12 +18,12 @@ const Navbar = () => {
   return (
     <nav className="sticky top-0 z-50 bg-gray-950/90 backdrop-blur-md shadow-2xl shadow-black/50 border-b border-blue-900/50">
       <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
+        <div className="flex justify-between items-center h-16 gap-3">
           <Link
             to="/"
-            className="flex items-center text-2xl font-black text-white hover:text-blue-400 transition duration-300 tracking-widest"
+            className="flex items-center text-xl sm:text-2xl font-black text-white hover:text-blue-400 transition duration-300 tracking-widest"
           >
-            <Zap className="w-7 h-7 mr-2 text-yellow-400" />
+            <Zap className="w-6 h-6 sm:w-7 sm:h-7 mr-2 text-yellow-400" />
             <span className="text-blue-400">Pro</span>Chef
           </Link>
 
@@ -42,12 +42,25 @@ const Navbar = () => {
 
           <Link
             to="/favorites"
-            className="inline-flex items-center gap-2 text-gray-100 border border-gray-700 rounded-full px-4 py-2 hover:bg-gray-800 hover:border-rose-500 transition"
+            className="inline-flex items-center gap-1 sm:gap-2 text-gray-100 border border-gray-700 rounded-full px-3 sm:px-4 py-2 hover:bg-gray-800 hover:border-rose-500 transition text-sm sm:text-base"
           >
             <Heart className="w-4 h-4 text-rose-500" />
-            Favorites
+            <span className="hidden sm:inline">Favorites</span>
           </Link>
         </div>
+
+        <form onSubmit={onSubmit} className="pb-3 sm:hidden flex">
+          <input
+            type="text"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            placeholder="Search recipes..."
+            className="w-full px-4 py-2 border border-gray-700 bg-gray-900 text-gray-50 rounded-l-full text-sm"
+          />
+          <button type="submit" className="bg-blue-600 text-white p-2.5 rounded-r-full">
+            <Search className="w-4 h-4" />
+          </button>
+        </form>
       </div>
     </nav>
   );

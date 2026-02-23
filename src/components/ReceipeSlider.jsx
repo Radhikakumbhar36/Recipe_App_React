@@ -35,15 +35,15 @@ const ReceipeSlider = ({ title, recipes = [], loading = false, error = "" }) => 
 
   return (
     <section className="mt-6 mx-auto">
-      <h2 className="text-3xl font-extrabold text-gray-100 mb-6 tracking-tight border-l-4 border-yellow-400 pl-4 flex items-center">
-        <Clock className="w-6 h-6 mr-3 text-blue-500" />
+      <h2 className="text-2xl sm:text-3xl font-extrabold text-gray-100 mb-4 sm:mb-6 tracking-tight border-l-4 border-yellow-400 pl-3 sm:pl-4 flex items-center">
+        <Clock className="w-5 h-5 sm:w-6 sm:h-6 mr-2 sm:mr-3 text-blue-500" />
         {title}
       </h2>
 
-      <div className="w-[90%] mx-auto p-3">
+      <div className="w-full sm:w-[90%] mx-auto p-1 sm:p-3">
         <Slider {...settings}>
           {recipes.map((recipe) => (
-            <div key={recipe.id} className="px-6 flex justify-center">
+            <div key={recipe.id} className="px-2 sm:px-6 flex justify-center">
               <ReceipeCard meal={recipe} />
             </div>
           ))}
