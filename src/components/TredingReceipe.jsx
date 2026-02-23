@@ -55,7 +55,25 @@ const TredingReceipe = ({ title, recipes = [], loading = false, error = "" }) =>
         {title}
       </h2>
 
-      <div className="w-full mx-auto">
+      <div className="grid grid-cols-2 gap-3 sm:gap-4 md:hidden">
+        {recipes.slice(0, 6).map((recipe) => (
+          <Link key={recipe.id} to={`/recipe/${recipe.id}/`}>
+            <div className="relative bg-gray-900 rounded-xl shadow-xl shadow-black/50 overflow-hidden group transform transition duration-500 cursor-pointer border border-gray-800 hover:shadow-blue-600/50">
+              <div className="absolute inset-0 rounded-xl border-2 border-transparent group-hover:border-blue-500/80 transition duration-500"></div>
+
+              <div className="flex justify-center items-center p-3">
+                <img
+                  src={recipe?.image}
+                  alt={recipe?.title || "recipe"}
+                  className="h-[100px] w-[100px] sm:h-[120px] sm:w-[120px] rounded-xl border border-yellow-400 transition duration-500 group-hover:scale-105 object-cover"
+                />
+              </div>
+            </div>
+          </Link>
+        ))}
+      </div>
+
+      <div className="w-full mx-auto hidden md:block">
         <Slider {...settings}>
           {recipes.map((recipe) => (
             <div key={recipe.id} className="px-2 sm:px-6 md:px-8 lg:px-10 flex justify-center">
