@@ -2,7 +2,7 @@ import React from "react";
 import { Globe } from "lucide-react";
 import { Link } from "react-router-dom";
 
-const CuisineBar = ({ filterByArea }) => {
+const CuisineBar = () => {
   const featuredCuisines = [
     "American",
     "British",
@@ -23,10 +23,9 @@ const CuisineBar = ({ filterByArea }) => {
             <Globe className="w-5 h-5 mr-2" /> Global Cuisines:
           </div>
           {featuredCuisines.map((cuisine) => (
-            <Link 
-            to={`search/${cuisine}`}
+            <Link
+              to={`/search/${encodeURIComponent(cuisine)}?type=cuisine`}
               key={cuisine}
-              onClick={() => filterByArea(cuisine)}
               className="cursor-pointer text-gray-200 text-sm whitespace-nowrap font-medium
                         hover:text-white transition duration-200 py-1.5 px-4 rounded-full bg-gray-700
                         hover:bg-blue-600 hover:shadow-lg hover:shadow-blue-800/50 transform hover:scale-[1.05]"
