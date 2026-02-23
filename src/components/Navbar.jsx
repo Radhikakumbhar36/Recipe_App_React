@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Search, Zap, Heart } from "lucide-react";
+import { Search, Zap, Heart, MessageCircle } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
@@ -40,13 +40,22 @@ const Navbar = () => {
             </button>
           </form>
 
-          <Link
-            to="/favorites"
-            className="inline-flex items-center gap-1 sm:gap-2 text-gray-100 border border-gray-700 rounded-full px-3 sm:px-4 py-2 hover:bg-gray-800 hover:border-rose-500 transition text-sm sm:text-base"
-          >
-            <Heart className="w-4 h-4 text-rose-500" />
-            <span className="hidden sm:inline">Favorites</span>
-          </Link>
+          <div className="flex items-center gap-2">
+            <Link
+              to="/assistant"
+              className="inline-flex items-center gap-1 sm:gap-2 text-gray-100 border border-gray-700 rounded-full px-3 sm:px-4 py-2 hover:bg-gray-800 hover:border-blue-500 transition text-sm sm:text-base"
+            >
+              <MessageCircle className="w-4 h-4 text-blue-400" />
+              <span className="hidden sm:inline">Assistant</span>
+            </Link>
+            <Link
+              to="/favorites"
+              className="inline-flex items-center gap-1 sm:gap-2 text-gray-100 border border-gray-700 rounded-full px-3 sm:px-4 py-2 hover:bg-gray-800 hover:border-rose-500 transition text-sm sm:text-base"
+            >
+              <Heart className="w-4 h-4 text-rose-500" />
+              <span className="hidden sm:inline">Favorites</span>
+            </Link>
+          </div>
         </div>
 
         <form onSubmit={onSubmit} className="pb-3 sm:hidden flex">

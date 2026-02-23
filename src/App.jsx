@@ -5,6 +5,7 @@ import CuisineBar from "./components/Cuisine";
 import ReceipeDetailView from "./components/ReceipeDetailView";
 import SearchView from "./components/SearchView";
 import Favorites from "./components/Favorites";
+import Chatbot from "./components/Chatbot";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 const App = () => {
@@ -18,6 +19,7 @@ const App = () => {
           <Route path="/recipe/:id" element={<ReceipeDetailView />} />
           <Route path="/search/:query" element={<SearchView />} />
           <Route path="/favorites" element={<Favorites />} />
+          <Route path="/assistant" element={<Chatbot />} />
         </Routes>
       </div>
     </Router>

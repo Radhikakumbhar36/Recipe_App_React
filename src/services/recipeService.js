@@ -61,6 +61,22 @@ const hydrateMealsForFiltering = async (meals) => {
   return details.filter(Boolean);
 };
 
+const normalizeIngredientList = (ingredients) => {
+  if (!Array.isArray(ingredients)) return [];
+
+  return [...new Set(
+    ingredients
+      .map((item) => String(item || "").trim().toLowerCase())
+      .filter(Boolean)
+  )];
+};
+
+const paginateMeals = (meals, page = 1, pageSize = 12) => {
+  const pageNumber = Number.isFinite(Number(page)) && Number(page) > 0 ? Number(page) : 1;
+  const offset = (pageNumber - 1) * pageSize;
+  return meals.slice(offset, offset + pageSize);
+};
+
 export const searchRecipes = async (query = "", filters = {}, page = 1) => {
   const pageNumber = Number.isFinite(Number(page)) && Number(page) > 0 ? Number(page) : 1;
   const pageSize = 12;
@@ -99,8 +115,34 @@ export const searchRecipes = async (query = "", filters = {}, page = 1) => {
     meals = applyMealdbFilters(meals, normalizedFilters);
   }
 
-  const offset = (pageNumber - 1) * pageSize;
-  return meals.slice(offset, offset + pageSize).map(toRecipeCard);
+  return paginateMeals(meals, pageNumber, pageSize).map(toRecipeCard);
+};
+
+export const searchRecipesByIngredients = async (ingredients = [], page = 1) => {
+  const normalizedIngredients = normalizeIngredientList(ingredients).slice(0, 5);
+
+  if (normalizedIngredients.length === 0) {
+    return [];
+  }
+
+  const mealLists = await Promise.all(
+    normalizedIngredients.map(async (ingredient) => {
+      const data = await fetchJson(`${BASE_URL}/filter.php?i=${encodeURIComponent(ingredient)}`);
+      return data?.meals || [];
+    })
+  );
+
+  if (mealLists.length === 0) {
+    return [];
+  }
+
+  let intersected = mealLists[0];
+  for (let i = 1; i < mealLists.length; i += 1) {
+    const ids = new Set((mealLists[i] || []).map((meal) => String(meal.idMeal || meal.id)));
+    intersected = intersected.filter((meal) => ids.has(String(meal.idMeal || meal.id)));
+  }
+
+  return paginateMeals(intersected, page, 12).map(toRecipeCard);
 };
 
 export const getRecipeDetails = async (id) => {
